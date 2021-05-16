@@ -6,12 +6,15 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"pdb/model"
+	"pdb/utils"
 )
 
 var GormDB *gorm.DB
 
 func SetupDB() {
 	var err error
+
+	utils.EnsureDirectoryExists("data")
 
 	GormDB, err = gorm.Open(sqlite.Open("data/database.db"), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
