@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"pdb/database"
@@ -62,14 +61,8 @@ func UpdatePatient(c *gin.Context) {
 }
 
 func ListPatients(c *gin.Context) {
-	firstname := c.Query("firstname")
-	lastname := c.Query("lastname")
-
-	var patients []model.Patient
-	database.GormDB.
-		Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", firstname)).
-		Where("last_name LIKE ?", fmt.Sprintf("%%%s%%", lastname)).
-		Find(&patients)
+	query := c.Query("query")
+	patients := model.FindWithQuery(query, database.GormDB)
 
 	c.JSON(http.StatusOK, patients)
 }

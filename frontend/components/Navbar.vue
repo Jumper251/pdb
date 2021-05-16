@@ -1,41 +1,39 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">PDB</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <b-navbar toggleable="lg" type="dark"  class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <b-navbar-brand to="/">PDB</b-navbar-brand>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+    <b-collapse id="nav-collapse" is-nav>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Patienten <span class="sr-only">(current)</span></a>
+          <b-link class="nav-link" to="/">Patienten <span class="sr-only">(current)</span></b-link>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Patient hinzufügen</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
+
+
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Suche" aria-label="Search">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Suchen</button>
+        <input v-model="searchQuery" class="form-control mr-sm-2" type="text" placeholder="Suche" aria-label="Search">
+        <button @click.prevent="search" class="btn btn-outline-warning my-2 my-sm-0">Suchen</button>
       </form>
-    </div>
-  </nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  data() {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    search() {
+      this.$router.push({path: '/', query: {query: this.searchQuery}, replace: true})
+
+    }
+  }
 }
 </script>
 

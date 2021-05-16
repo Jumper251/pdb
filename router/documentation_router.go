@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"pdb/database"
@@ -11,6 +12,7 @@ func CreateDocumentation(c *gin.Context) {
 	var documentationData model.DocumentationData
 
 	if err := c.ShouldBindJSON(&documentationData); err != nil {
+		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid Documentation"})
 		return
 	}
@@ -45,7 +47,7 @@ func ListDocumentation(c *gin.Context) {
 	id := c.MustGet("id").(int)
 
 	var documentation []model.Documentation
-	database.GormDB.Find(&documentation, "patient_id = ?", id)
+	database.GormDB.Order("time desc").Find(&documentation, "patient_id = ?", id)
 
 	c.JSON(http.StatusOK, documentation)
 }

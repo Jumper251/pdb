@@ -1,44 +1,89 @@
 <template>
 
   <main role="main">
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-      </div>
+    <div class="container mt-5">
+      <h2>Patienten</h2>
+      <hr/>
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
+      <div class="mt-3 mb-3 text-right">
+        <b-button to="/add" variant="primary">Patient hinzufügen</b-button>
       </div>
 
-      <hr>
+      <b-table :per-page="perPage" :current-page="currentPage" :no-provider-paging="true"
+               striped sort-icon-left hover :fields="fields" :items="patients"
+      >
 
+        <template #cell(ID)="data">
+          <!-- `data.value` is the value after formatted by the Formatter -->
+          <b-link :to="`/patients/${data.value}`">Stammdaten</b-link>
+          <b-link :to="`/documentation/${data.value}/all`">Dokumentation</b-link>
+
+        </template>
+      </b-table>
+
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
+
+      <hr>
     </div> <!-- /container -->
 
   </main>
 </template>
 
 <script>
-export default {}
+
+import config from '@/config';
+
+export default {
+  data() {
+    return {
+      patients: [],
+      fields: [
+        {key: 'name', label: "Voller Name", sortable: true, formatter: "fullName"},
+        {key: 'ID', label: "Links" }
+      ],
+      currentPage: 1,
+      perPage: 20
+    }
+  },
+  computed: {
+    rows() {
+      return this.patients.length;
+    }
+  },
+  mounted() {
+    this.fetchPatients()
+
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path === '/') {
+        this.fetchPatients()
+      }
+    },
+  },
+  methods: {
+    fullName(value, key, item) {
+      return `${item.first_name} ${item.last_name}`
+    },
+    async fetchPatients(firstname, lastname) {
+      let url = `${config.baseUrl}/api/patients`
+
+      const query = this.$route.query.query
+      if (query) {
+        url += `?query=${query}`
+      }
+
+      const response = await this.$axios.get(url);
+      this.patients = response.data;
+    }
+  }
+}
 </script>
 
