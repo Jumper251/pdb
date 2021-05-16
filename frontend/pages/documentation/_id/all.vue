@@ -127,11 +127,11 @@ export default {
   },
   methods: {
     async fetchPatient() {
-      const response = await this.$axios.get(`${config.baseUrl}/api/patients/${this.id}`)
+      const response = await this.$axios.get(`${config.baseUrl}/patients/${this.id}`)
       this.patient = response.data;
     },
     async fetchDocumentations() {
-      const response = await this.$axios.get(`${config.baseUrl}/api/documentation/${this.id}/all`)
+      const response = await this.$axios.get(`${config.baseUrl}/documentation/${this.id}/all`)
       this.documentations = response.data;
     },
     formatDate(time) {

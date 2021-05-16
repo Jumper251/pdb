@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     async fetchPatient() {
-      const response = await this.$axios.get(`${config.baseUrl}/api/patients/${this.id}`)
+      const response = await this.$axios.get(`${config.baseUrl}/patients/${this.id}`)
       this.patient = response.data;
     },
     async createDocumentation() {
@@ -141,7 +141,7 @@ export default {
       date.setMinutes(date.getMinutes() + minutes)
 
       try {
-        const response = await this.$axios.post(`${config.baseUrl}/api/documentation/${this.id}`, {
+        const response = await this.$axios.post(`${config.baseUrl}/documentation/${this.id}`, {
           time: date.toISOString(),
           content: this.content,
           patient_id: parseInt(this.id)

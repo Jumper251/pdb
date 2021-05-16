@@ -158,11 +158,11 @@ export default {
       this.$refs['my-modal'].hide()
     },
     async fetchPatient() {
-      const response = await this.$axios.get(`${config.baseUrl}/api/patients/${this.id}`)
+      const response = await this.$axios.get(`${config.baseUrl}/patients/${this.id}`)
       this.patient = response.data;
     },
     async deletePatient() {
-      await this.$axios.delete(`${config.baseUrl}/api/patients/${this.id}`);
+      await this.$axios.delete(`${config.baseUrl}/patients/${this.id}`);
 
       this.hideModal()
       this.$router.push("/")

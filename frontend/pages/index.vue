@@ -77,7 +77,7 @@ export default {
       return `${item.last_name}, ${item.first_name}`
     },
     async fetchPatients(firstname, lastname) {
-      let url = `${config.baseUrl}/api/patients`
+      let url = `${config.baseUrl}/patients`
 
       const query = this.$route.query.query
       if (query) {

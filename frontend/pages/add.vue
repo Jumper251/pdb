@@ -241,7 +241,7 @@ export default {
       }
 
       try {
-        await this.$axios.post(`${config.baseUrl}/api/patients`, this.form)
+        await this.$axios.post(`${config.baseUrl}/patients`, this.form)
         this.$router.push("/")
       } catch (err) {
         console.log(err.response)

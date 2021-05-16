@@ -243,7 +243,7 @@ export default {
   },
   methods: {
     async fetchPatient() {
-      const response = await this.$axios.get(`${config.baseUrl}/api/patients/${this.id}`)
+      const response = await this.$axios.get(`${config.baseUrl}/patients/${this.id}`)
       this.patient = response.data;
     },
     async addPatient() {
@@ -252,7 +252,7 @@ export default {
       }
 
       try {
-        await this.$axios.put(`${config.baseUrl}/api/patients/${this.id}`, this.patient)
+        await this.$axios.put(`${config.baseUrl}/patients/${this.id}`, this.patient)
         this.$router.push(`/patients/${this.id}`)
       } catch (err) {
         console.log(err.response)
