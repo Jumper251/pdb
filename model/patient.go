@@ -38,19 +38,16 @@ func FindWithQuery(query string, db *gorm.DB) []Patient {
 
 	switch len(split) {
 	case 1:
-		db.
-			Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", split[0])).
+		db.Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", split[0])).
 			Or("last_name LIKE ?", fmt.Sprintf("%%%s%%", split[0])).
 			Find(&patients)
 	case 2:
-		db.
-			Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", split[0])).
+		db.Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", split[0])).
 			Where("last_name LIKE ?", fmt.Sprintf("%%%s%%", split[1])).
 			Find(&patients)
 	default:
 		lastSplit := len(split) - 1
-		db.
-			Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", strings.Join(split[0:lastSplit], " "))).
+		db.Where("first_name LIKE ?", fmt.Sprintf("%%%s%%", strings.Join(split[0:lastSplit], " "))).
 			Where("last_name LIKE ?", fmt.Sprintf("%%%s%%", split[lastSplit])).
 			Find(&patients)
 	}

@@ -15,11 +15,15 @@
                striped sort-icon-left hover :fields="fields" :items="patients"
       >
 
+        <template #cell(last_name)="data">
+          <b-link :to="`/patients/${data.item.ID}`">{{data.value}}</b-link>
+        </template>
+
+
+
         <template #cell(ID)="data">
           <!-- `data.value` is the value after formatted by the Formatter -->
-          <b-link :to="`/patients/${data.value}`">Stammdaten</b-link>
-          <b-link :to="`/documentation/${data.value}/all`">Dokumentation</b-link>
-
+       <b-link :to="`/documentation/${data.value}/all`">Dokumentation</b-link>
         </template>
       </b-table>
 
@@ -45,7 +49,7 @@ export default {
     return {
       patients: [],
       fields: [
-        {key: 'name', label: "Voller Name", sortable: true, formatter: "fullName"},
+        {key: 'last_name', label: "Voller Name", sortable: true, formatter: "fullName"},
         {key: 'ID', label: "Links" }
       ],
       currentPage: 1,
@@ -70,7 +74,7 @@ export default {
   },
   methods: {
     fullName(value, key, item) {
-      return `${item.first_name} ${item.last_name}`
+      return `${item.last_name}, ${item.first_name}`
     },
     async fetchPatients(firstname, lastname) {
       let url = `${config.baseUrl}/api/patients`

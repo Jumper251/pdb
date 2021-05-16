@@ -12,7 +12,9 @@ func Initialize() *gin.Engine {
 	router := gin.Default()
 	config := utils.GetConfig()
 
-	router.Use(gin.BasicAuth(gin.Accounts{config.AuthUser: config.AuthPassword}))
+	if config.IsRelease() {
+		router.Use(gin.BasicAuth(gin.Accounts{config.AuthUser: config.AuthPassword}))
+	}
 
 	// Rewriting for static files
 	router.GET("/patients/*p", rewritePath(router))

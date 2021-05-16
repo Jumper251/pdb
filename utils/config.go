@@ -5,12 +5,18 @@ import "os"
 type Config struct {
 	AuthUser     string
 	AuthPassword string
+	Mode         string
+}
+
+func (c Config) IsRelease() bool {
+	return c.Mode == "release"
 }
 
 func GetConfig() *Config {
 	return &Config{
 		AuthUser:     GetenvOrDefault("AUTH_USER", "test"),
 		AuthPassword: GetenvOrDefault("AUTH_PASSWORD", "1234"),
+		Mode:         GetenvOrDefault("GIN_MODE", "development"),
 	}
 }
 
