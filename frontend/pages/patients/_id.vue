@@ -100,7 +100,7 @@
             </b-row>
           </b-form>
           <div class="text-center">
-    <b-button   variant="outline-dark" class="mt-4">Zur Dokumentation &raquo;</b-button>
+    <b-button :to="`/documentation/${id}/all`" variant="outline-dark" class="mt-4">Zur Dokumentation &raquo;</b-button>
           </div>
         </b-card-text>
         <hr class="mt-5"/>
