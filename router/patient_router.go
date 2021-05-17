@@ -32,13 +32,13 @@ func GetPatient(c *gin.Context) {
 func DeletePatient(c *gin.Context) {
 	id := c.MustGet("id").(int)
 
-	result := database.GormDB.Unscoped().Delete(&model.Patient{}, id)
+	result := database.GormDB.Delete(&model.Patient{}, id)
 	if result.RowsAffected <= 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Patient not found"})
 		return
 	}
 
-	database.GormDB.Unscoped().Where("patient_id = ?", id).Delete(&model.Documentation{})
+	database.GormDB.Where("patient_id = ?", id).Delete(&model.Documentation{})
 
 	c.JSON(http.StatusOK, gin.H{"message": "Patient deleted"})
 }

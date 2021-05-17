@@ -7,6 +7,7 @@ import (
 
 func main() {
 	database.SetupDB()
+	database.StartScheduler()
 
 	r := router.Initialize()
 

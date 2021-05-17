@@ -172,6 +172,8 @@ export default {
         .replace(/\n$/g, "")
         .split("\n");
 
+      let sizeSum = 0;
+
       let sum = 0,
         row, cut, add, rowCut,
         tagMatch,
@@ -182,7 +184,16 @@ export default {
       for (var i = 0; i < arr.length; i++) {
 
         row = arr[i];
-
+      /*  if (row === '<br>') {
+          sum += 5
+        }
+        if (row === '<p>') {
+          sum += 1
+        }
+        if (sum >= limit) {
+          more = true
+        }
+*/
         // count multiple spaces as one character
         if (!preserveWhiteSpace) {
           rowCut = row.replace(/[ ]+/g, ' ');
