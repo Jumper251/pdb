@@ -19,8 +19,10 @@
       </nav>
 
       <hr />
-      <div class="mt-3 mb-3 text-right">
-        <b-button :to="`/documentation/${id}/create`" variant="primary">Dokumentation erstellen</b-button>
+      <div class="text-right">
+        <b-button class="mr-3" :to="`/documentation/${id}/create`" variant="primary">Dokumentation erstellen</b-button>
+        <b-button class="d-md-inline-block bv-d-sm-down-none" :href="`/export/${id}`"  target="_blank" variant="secondary">Exportieren</b-button>
+
         <hr />
       </div>
     </div>
@@ -157,7 +159,7 @@ export default {
     shortenContent(html) {
       let options = {};
 
-      let limit = 20,
+      let limit = 250,
         preserveTags = true,
         wordBreak = false,
         suffix = '...',
@@ -184,16 +186,7 @@ export default {
       for (var i = 0; i < arr.length; i++) {
 
         row = arr[i];
-      /*  if (row === '<br>') {
-          sum += 5
-        }
-        if (row === '<p>') {
-          sum += 1
-        }
-        if (sum >= limit) {
-          more = true
-        }
-*/
+
         // count multiple spaces as one character
         if (!preserveWhiteSpace) {
           rowCut = row.replace(/[ ]+/g, ' ');
@@ -206,6 +199,19 @@ export default {
         }
 
         var charArr = this.getCharArr(rowCut);
+
+        if (row === '<br>') {
+          sum += 40
+        }
+        if (row === '<p>') {
+          sum += 1
+        }
+        if (row === '</p>') {
+          sum += 15
+        }
+        if (sum >= limit) {
+          more = true
+        }
 
         if (row[0] !== "<") {
 

@@ -37,6 +37,9 @@ func Initialize() *gin.Engine {
 	api.GET("/documentation/:id", middleware.ValidateID(), GetDocumentation)
 	api.GET("/documentation/:id/all", middleware.ValidateID(), middleware.PatientExists(), ListDocumentation)
 
+	// Export endpoints
+	router.GET("/export/:id", middleware.ValidateID(), middleware.PatientExists(), GetDocumentationPDF)
+
 	return router
 }
 

@@ -27,6 +27,13 @@ type Patient struct {
 	PatientData
 }
 
+func FindDocumentation(id uint, db *gorm.DB) []Documentation {
+	var documentation []Documentation
+	db.Order("time desc").Find(&documentation, "patient_id = ?", id)
+
+	return documentation
+}
+
 func FindWithQuery(query string, db *gorm.DB) []Patient {
 	var patients []Patient
 	if len(query) <= 0 {
