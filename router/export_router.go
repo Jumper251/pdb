@@ -15,8 +15,7 @@ func GetDocumentationPDF(c *gin.Context) {
 	c.Header("Content-Type", "application/pdf")
 	pdf := GenerateDocPDF(&patient)
 
-	err := pdf.Output(c.Writer)
-	if err != nil {
+	if err := pdf.Output(c.Writer); err != nil {
 		fmt.Println(err.Error())
 	}
 }

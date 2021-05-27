@@ -20,9 +20,9 @@ func GetConfig() *Config {
 		AuthUser:     GetenvOrDefault("AUTH_USER", "test"),
 		AuthPassword: GetenvOrDefault("AUTH_PASSWORD", "1234"),
 		Mode:         GetenvOrDefault("GIN_MODE", "development"),
-		FtpUrl:       os.Getenv("FTP_URL"),
-		FtpUser:      os.Getenv("FTP_USER"),
-		FtpPassword:  os.Getenv("FTP_PASSWORD"),
+		FtpUrl:       GetenvOrDefault("FTP_URL", ""),
+		FtpUser:      GetenvOrDefault("FTP_USER", ""),
+		FtpPassword:  GetenvOrDefault("FTP_PASSWORD", ""),
 	}
 }
 
