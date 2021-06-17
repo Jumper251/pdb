@@ -32,21 +32,9 @@
                :fields="fields" :items="documentations"
       >
         <template #cell(content)="data">
-          <!-- `data.value` is the value after formatted by the Formatter -->
-
-          <!--         <b-card no-body >
-                     <b-card-header header-bg-variant="light" header-tag="header" class="p-1" role="tab">
-                       <b-button class="text-left" block v-b-toggle="`content-${data.item.ID}`" variant="light">{{ `Am ${formatDate(data.item.time)} um ${formatTime(data.item.time)} Uhr`}}</b-button>
-                     </b-card-header>
-                     <b-collapse :id="`content-${data.item.ID}`" role="tabpanel">
-                       <b-card-body>
-                         <b-card-text v-html="data.item.content"></b-card-text>
-                       </b-card-body>
-                     </b-collapse>
-                   </b-card> -->
           <b-overlay :show="showOverlay(data.item.ID)">
-            <b-card :sub-title="`Am ${formatDate(data.item.time)} um ${formatTime(data.item.time)} Uhr`">
-              <b-card-text class="mt-4">
+            <b-card  :sub-title="`Am ${formatDate(data.item.time)} um ${formatTime(data.item.time)} Uhr`">
+              <b-card-text  class="mt-4">
                 <span v-if="!isCollapsed(data.item.ID) && !showOverlay(data.item.ID)"
                       v-html="shortenContent(data.item.content).html"></span>
                 <b-collapse :visible="isCollapsed(data.item.ID) && !showOverlay(data.item.ID)" id="collapse-3">
@@ -206,6 +194,9 @@ export default {
         if (row === '<p>') {
           sum += 1
         }
+        if (row.startsWith('<img')) {
+          sum += 200
+        }
         if (row === '</p>') {
           sum += 15
         }
@@ -314,3 +305,8 @@ export default {
 }
 </script>
 
+<style>
+img {
+  max-width: 100%;
+}
+</style>

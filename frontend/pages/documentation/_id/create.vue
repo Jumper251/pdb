@@ -101,7 +101,7 @@ export default {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             [{'list': 'ordered'}, {'list': 'bullet'}, {'header': 1}, {'header': 2}],
-            ['blockquote', 'link'],
+            ['blockquote', 'link', 'image'],
             [{'color': []}],
           ]
         }

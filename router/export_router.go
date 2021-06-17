@@ -57,6 +57,9 @@ func GenerateDocPDF(p *model.Patient) *gofpdf.Fpdf {
 	pdf.SetFont("Arial", "", 12)
 	for _, documentation := range documentations {
 		content := strings.ReplaceAll(documentation.Content, "&nbsp;", " ")
+		content = strings.ReplaceAll(content, "</p>", "</p><br />")
+		content = strings.ReplaceAll(content, "<br>", "<br><br />")
+
 		timeFormat := documentation.Time.Format("Am 02.01.2006 um 15:04")
 
 		html.Write(lineHt, fmt.Sprintf("<b>%s</b>", timeFormat))
