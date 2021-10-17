@@ -109,8 +109,10 @@ export default {
     }
   },
   mounted() {
-
     this.fetchPatient()
+    const currDate = new Date()
+    this.date = currDate
+    this.time = currDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   },
   computed: {
     fullName() {
