@@ -17,8 +17,8 @@ func (c Config) IsRelease() bool {
 
 func GetConfig() *Config {
 	return &Config{
-		AuthUser:     GetenvOrDefault("AUTH_USER", "test"),
-		AuthPassword: GetenvOrDefault("AUTH_PASSWORD", "1234"),
+		AuthUser:     GetenvOrDefault("AUTH_USER", ""),
+		AuthPassword: GetenvOrDefault("AUTH_PASSWORD", ""),
 		Mode:         GetenvOrDefault("GIN_MODE", "development"),
 		FtpUrl:       GetenvOrDefault("FTP_URL", ""),
 		FtpUser:      GetenvOrDefault("FTP_USER", ""),
