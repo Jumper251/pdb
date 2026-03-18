@@ -12,7 +12,7 @@ func Initialize() *gin.Engine {
 	router := gin.Default()
 	config := utils.GetConfig()
 
-	if config.IsRelease() {
+	if config.IsRelease() && len(config.AuthUser) > 0 {
 		router.Use(gin.BasicAuth(gin.Accounts{config.AuthUser: config.AuthPassword}))
 	}
 
